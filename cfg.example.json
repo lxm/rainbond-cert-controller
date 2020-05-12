@@ -1,0 +1,11 @@
+{
+    "rainbond": {
+        "api_key": "${RAINBOND_API_KEY}"
+    },
+    "acme": {
+        "email": "${ACME_EMAIL}",
+        "key_type": "${ACME_KEY_TYPE:RSA4096}",
+        "ca_dir_url": "${ACME_DIR_URL:https://acme-v02.api.letsencrypt.org/directory}",
+        "root_path": "${ACME_SRORAGE_PATH:/opt/rainbond-certs-controller/storage}"
+    }
+}

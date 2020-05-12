@@ -1,0 +1,7 @@
+cfg.json
+certs-auto
+.idea
+storage/*
+.vscode
+.DS_Store
+Jenkinsfile
