@@ -87,6 +87,7 @@ func main() {
 					CertificateId: certID,
 					ServiceId:     gwRule.ServiceId,
 					DomainName:    gwRule.DomainName,
+					ContainerPort: gwRule.ContainerPort,
 				})
 				if err != nil {
 					gerr := err.(rainbond.GenericSwaggerError)
