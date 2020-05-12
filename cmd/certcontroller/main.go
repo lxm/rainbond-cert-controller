@@ -92,8 +92,10 @@ func main() {
 				if err != nil {
 					gerr := err.(rainbond.GenericSwaggerError)
 					logrus.Error(fmt.Sprintf("update domain rule for domain %s err %s", gwRule.DomainName, string(gerr.Body())))
+					continue
 				}
 			}
+			logrus.Info(fmt.Sprintf("successfully update rule for domain %s", gwRule.DomainName))
 		}
 	}
 }
