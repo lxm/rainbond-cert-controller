@@ -45,7 +45,11 @@ DINGTALK_SK 可选，用于钉钉通知
 docker run参考
 
 ```
-docker run --rm -e ACME_EMAIL=luxingmin@hongyaa.com.cn -e RAINBOND_API_KEY=xxx -e DINGTALK_AK=xxx -e DINGTALK_SK=xxx hongyaa/rainbond-cert-controller:latest
+docker run --rm -e ACME_EMAIL=luxingmin@hongyaa.com.cn \
+-e RAINBOND_API_KEY=xxx \
+-e DINGTALK_AK=xxx \
+-e DINGTALK_SK=xxx \
+hongyaa/rainbond-cert-controller:latest
 ```
 
 ## 功能列表
