@@ -101,10 +101,10 @@ func main() {
 					notify.SendNotify("default", msg)
 					continue
 				}
+				msg := fmt.Sprintf("successfully update rule for domain %s", gwRule.DomainName)
+				logrus.Info(msg)
+				notify.SendNotify("default", msg)
 			}
-			msg := fmt.Sprintf("successfully update rule for domain %s", gwRule.DomainName)
-			logrus.Info(msg)
-			notify.SendNotify("default", msg)
 		}
 	}
 }

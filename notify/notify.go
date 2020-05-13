@@ -25,7 +25,6 @@ func SendNotify(notifyName, msg string) error {
 }
 
 func notifyDingtalk(notifyCfg config.Notify, msgStr string) error {
-	fmt.Println("notify dingtalk")
 	dingtalk := client.DingTalk{
 		AccessToken: notifyCfg.AccessToken,
 		Secret:      notifyCfg.Secret,
