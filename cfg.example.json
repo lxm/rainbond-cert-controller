@@ -7,5 +7,12 @@
         "key_type": "${ACME_KEY_TYPE:RSA4096}",
         "ca_dir_url": "${ACME_DIR_URL:https://acme-v02.api.letsencrypt.org/directory}",
         "root_path": "${ACME_SRORAGE_PATH:/opt/rainbond-certs-controller/storage}"
+    },
+    "notify_list": {
+        "default": {
+            "type": "dingtalk",
+            "access_token": "${DINGTALK_AK}",
+            "secret": "${DINGTALK_SK}"
+        }
     }
 }

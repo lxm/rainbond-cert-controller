@@ -10,6 +10,7 @@ import (
 	rainbond "github.com/goodrain/openapi-go"
 	"github.com/hongyaa-tech/rainbond-cert-controller/certs"
 	"github.com/hongyaa-tech/rainbond-cert-controller/config"
+	"github.com/hongyaa-tech/rainbond-cert-controller/notify"
 	"github.com/hongyaa-tech/rainbond-cert-controller/rainbondutils"
 	"github.com/sirupsen/logrus"
 )
@@ -71,13 +72,17 @@ func main() {
 			if needRequestCert {
 				certResource, err := certs.RequestCert(gwRule.DomainName, gwRule.AutoSslConfig)
 				if err != nil {
-					logrus.Error(fmt.Sprintf("RequestCert for domain %s err %s", gwRule.DomainName, err.Error()))
+					msg := fmt.Sprintf("RequestCert for domain %s err %s", gwRule.DomainName, err.Error())
+					logrus.Error(msg)
+					notify.SendNotify("default", msg)
 					continue
 				}
 
 				rainbondCertInfo, _, err := rainbondutils.UpdateOrCreateTeamCert(rainbond_client, ctx, gwRule.TenantId, existCert, certResource)
 				if err != nil {
-					logrus.Error(fmt.Sprintf("UpdateOrCreateTeamCert for domain %s err %s", gwRule.DomainName, err.Error()))
+					msg := fmt.Sprintf("UpdateOrCreateTeamCert for domain %s err %s", gwRule.DomainName, err.Error())
+					logrus.Error(msg)
+					notify.SendNotify("default", msg)
 					continue
 				}
 				certID = rainbondCertInfo.Id
@@ -91,11 +96,15 @@ func main() {
 				})
 				if err != nil {
 					gerr := err.(rainbond.GenericSwaggerError)
-					logrus.Error(fmt.Sprintf("update domain rule for domain %s err %s", gwRule.DomainName, string(gerr.Body())))
+					msg := fmt.Sprintf("update domain rule for domain %s err %s", gwRule.DomainName, string(gerr.Body()))
+					logrus.Error(msg)
+					notify.SendNotify("default", msg)
 					continue
 				}
 			}
-			logrus.Info(fmt.Sprintf("successfully update rule for domain %s", gwRule.DomainName))
+			msg := fmt.Sprintf("successfully update rule for domain %s", gwRule.DomainName)
+			logrus.Info(msg)
+			notify.SendNotify("default", msg)
 		}
 	}
 }
