@@ -55,7 +55,7 @@ hongyaa/rainbond-cert-controller:latest
 ## 功能列表
 * 自动申请证书
 * 到期自动续期
-* 钉钉通知申请状态
+* 钉钉/Slack通知申请状态
 
 ## TODO
 * 证书状态检查及异常通知

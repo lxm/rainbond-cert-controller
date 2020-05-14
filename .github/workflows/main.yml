@@ -20,7 +20,7 @@ jobs:
         uses: meeDamian/sync-readme@v1.0.6
         with:
           user: ${{ secrets.DOCKER_HUB_USERNAME }}
-          pass: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          pass: ${{ secrets.DOCKER_HUB_ACCOUNT_PASSWORD }}
           slug: hongyaa/rainbond-cert-controller
           readme: ./README.md
           description: true
