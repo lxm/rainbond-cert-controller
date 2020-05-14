@@ -16,3 +16,11 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           repository: hongyaa/rainbond-cert-controller
           tag_with_ref: true
+      - name: Update Docker Hub Description
+        uses: meeDamian/sync-readme@v1.0.6
+        with:
+          user: ${{ secrets.DOCKER_HUB_USERNAME }}
+          pass: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          slug: hongyaa/rainbond-cert-controller
+          readme: ./README.md
+          description: true
