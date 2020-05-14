@@ -12,7 +12,8 @@ import (
 
 func notifySlack(notifyCfg config.Notify, msgStr string) error {
 	defaultMessage := Default{
-		Title: msgStr,
+		Channel: notifyCfg.Channel,
+		Title:   msgStr,
 	}
 	buffer := bytes.NewBuffer(nil)
 	if err := json.NewEncoder(buffer).Encode(defaultMessage.Conver()); err != nil {
@@ -32,6 +33,7 @@ func notifySlack(notifyCfg config.Notify, msgStr string) error {
 
 //Default default
 type Default struct {
+	Channel    string       `json:"channel"`
 	Title      string       `json:"title"`
 	Describe   string       `json:"describe"`
 	Extensions []*Extension `json:"extensions"`
@@ -56,7 +58,7 @@ func (d *Default) Conver() *Message {
 		})
 	}
 	defectMessage := &Message{
-		Channel: "sales",
+		Channel: d.Channel,
 		Blocks: []*Block{
 			&Block{
 				Type: "section",

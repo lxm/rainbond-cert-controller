@@ -12,6 +12,7 @@
         "default": {
             "type": "${NOTIFY_TYPE:dingtalk}",
             "url": "${NOTIFY_URL}",
+            "channel": "${NOTIFY_CHANNEL}",
             "access_token": "${DINGTALK_AK}",
             "secret": "${DINGTALK_SK}"
         }

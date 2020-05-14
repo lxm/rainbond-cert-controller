@@ -44,6 +44,7 @@ type Auth struct {
 type Notify struct {
 	Type        string `json:"type"`
 	URL         string `json:"url,omitempty"`
+	Channel     string `json:"channel,omitempty"`
 	AccessToken string `json:"access_token,omitempty"`
 	Secret      string `json:"secret,omitempty"`
 }
