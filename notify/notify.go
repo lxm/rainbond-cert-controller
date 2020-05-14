@@ -10,6 +10,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+//SendNotify send notify message
 func SendNotify(notifyName, msg string) error {
 	notifyCfg, ok := config.Cfg.NotifyList[notifyName]
 	if !ok {
@@ -19,6 +20,8 @@ func SendNotify(notifyName, msg string) error {
 	switch notifyCfg.Type {
 	case "dingtalk":
 		return notifyDingtalk(notifyCfg, msg)
+	case "slack":
+		return notifySlack(notifyCfg, msg)
 	default:
 		return errors.New("no support type " + notifyCfg.Type)
 	}

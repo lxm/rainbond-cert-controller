@@ -43,8 +43,9 @@ type Auth struct {
 
 type Notify struct {
 	Type        string `json:"type"`
-	AccessToken string `json:"access_token"`
-	Secret      string `json:"secret"`
+	URL         string `json:"url,omitempty"`
+	AccessToken string `json:"access_token,omitempty"`
+	Secret      string `json:"secret,omitempty"`
 }
 
 //type CheckNotify map[string]string

@@ -10,7 +10,8 @@
     },
     "notify_list": {
         "default": {
-            "type": "dingtalk",
+            "type": "${NOTIFY_TYPE:dingtalk}",
+            "url": "${NOTIFY_URL}",
             "access_token": "${DINGTALK_AK}",
             "secret": "${DINGTALK_SK}"
         }
