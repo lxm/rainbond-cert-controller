@@ -63,18 +63,21 @@ func Load() {
 }
 
 func loadSSLAuthFromRainbond() {
-	rainbond_client := rainbond.NewAPIClient(rainbond.NewConfiguration())
+	client := rainbond.NewAPIClient(rainbond.NewConfiguration())
 	ctx := context.WithValue(context.Background(), rainbond.ContextAPIKey, rainbond.APIKey{
 		Key: Cfg.Rainbond.ApiKey,
 	})
-	ret, _, err := rainbond_client.OpenapiEntrepriseApi.OpenapiV1ConfigsList(ctx)
+	ret, _, err := client.OpenapiEntrepriseApi.OpenapiV1ConfigsList(ctx)
 	if err != nil {
 		logrus.Error("load ssl auto info from rainbond with error " + err.Error())
 		return
 	}
-	json.Unmarshal(ret.AutoSsl.Value, &(Cfg.AuthList))
+	if err := json.Unmarshal([]byte(ret.AutoSsl.Value), &(Cfg.AuthList)); err != nil {
+		logrus.Errorf("unmarshal enterprise auth config %s", err.Error())
+	}
 }
 
+//GetCurrPath get current path
 func GetCurrPath() string {
 	file, _ := exec.LookPath(os.Args[0])
 	path, _ := filepath.Abs(file)

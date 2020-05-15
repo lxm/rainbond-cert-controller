@@ -10,9 +10,7 @@
 
 package openapi
 
-import "encoding/json"
-
 type AutoSsl struct {
-	Enable bool            `json:"enable,omitempty"`
-	Value  json.RawMessage `json:"value,omitempty"`
+	Enable bool   `json:"enable,omitempty"`
+	Value  string `json:"value,omitempty"`
 }
