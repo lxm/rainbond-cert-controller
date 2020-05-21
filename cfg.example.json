@@ -6,7 +6,7 @@
         "email": "${ACME_EMAIL}",
         "key_type": "${ACME_KEY_TYPE:RSA4096}",
         "ca_dir_url": "${ACME_DIR_URL:https://acme-v02.api.letsencrypt.org/directory}",
-        "root_path": "${ACME_SRORAGE_PATH:/opt/rainbond-certs-controller/storage}"
+        "root_path": "${ACME_SRORAGE_PATH:/opt/rainbond-cert-controller/storage}"
     },
     "notify_list": {
         "default": {
@@ -16,5 +16,6 @@
             "access_token": "${DINGTALK_AK}",
             "secret": "${DINGTALK_SK}"
         }
-    }
+    },
+    "disable_check_cluster": "${DISABLE_CLUSTER_LIST}"
 }

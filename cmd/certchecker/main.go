@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/antihax/optional"
 	rainbond "github.com/goodrain/openapi-go"
 	"github.com/hongyaa-tech/rainbond-cert-controller/config"
 	"github.com/hongyaa-tech/rainbond-cert-controller/notify"
 	"github.com/hongyaa-tech/rainbond-cert-controller/sslcheck"
+	"github.com/robfig/cron"
 	"github.com/sirupsen/logrus"
 )
 
@@ -22,6 +22,13 @@ const (
 )
 
 func main() {
+	// cronSvc := cron.New(cron.WithSeconds())
+	cronSvc := cron.New()
+	cronSvc.AddFunc("*/10 * * * *", clusterCertCheck)
+	cronSvc.Run()
+}
+
+func clusterCertCheck() {
 	rainbond_client := rainbond.NewAPIClient(rainbond.NewConfiguration())
 	ctx := context.WithValue(context.Background(), rainbond.ContextAPIKey, rainbond.APIKey{
 		Key: config.Cfg.Rainbond.ApiKey,
@@ -29,7 +36,7 @@ func main() {
 	// list all tenants
 
 	gwRules, _, err := rainbond_client.OpenapiGatewayApi.OpenapiV1HttpdomainsList(ctx, &rainbond.OpenapiGatewayApiOpenapiV1HttpdomainsListOpts{
-		AutoSsl: optional.NewBool(true),
+		// AutoSsl: optional.NewBool(true),
 	})
 	if err != nil {
 		msg := fmt.Sprintf("init certcheker list gatewat rules error ", err.Error())
@@ -39,6 +46,13 @@ func main() {
 	for _, gwRule := range gwRules {
 		if strings.HasPrefix(gwRule.DomainName, "*.") {
 			logrus.Info(fmt.Sprintf("wildcard domain:[%s] do not support check", gwRule.DomainName))
+			continue
+		}
+		if strings.Compare(gwRule.Protocol, "https") != 0 {
+			continue
+		}
+		if strings.Contains(config.Cfg.DisableCheckCluster, gwRule.RegionName) {
+			logrus.Info(fmt.Sprintf("rule: %s cluster: %s disabled by config, ignore", gwRule.DomainName, gwRule.RegionName))
 			continue
 		}
 		expire, err := sslcheck.GetCertsExpire(gwRule.DomainName, "443")
