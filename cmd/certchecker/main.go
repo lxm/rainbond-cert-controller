@@ -9,7 +9,7 @@ import (
 	"github.com/hongyaa-tech/rainbond-cert-controller/config"
 	"github.com/hongyaa-tech/rainbond-cert-controller/notify"
 	"github.com/hongyaa-tech/rainbond-cert-controller/sslcheck"
-	"github.com/robfig/cron"
+	"github.com/robfig/cron/v3"
 	"github.com/sirupsen/logrus"
 )
 
@@ -22,8 +22,7 @@ const (
 )
 
 func main() {
-	// cronSvc := cron.New(cron.WithSeconds())
-	cronSvc := cron.New()
+	cronSvc := cron.New(cron.WithSeconds())
 	cronSvc.AddFunc("*/10 * * * *", clusterCertCheck)
 	cronSvc.Run()
 }
