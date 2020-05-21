@@ -37,7 +37,7 @@ RAINBOND_API_KEY rainbond openapi key
 ACME_EMAIL let's encrypt email
 ACME_KEY_TYPE 可选，默认为RSA4096
 ACME_DIR_URL 可选，默认为https://acme-v02.api.letsencrypt.org/directory
-ACME_SRORAGE_PATH 可选，用于存放认证信息，默认/opt/rainbond-certs-controller/storage
+ACME_SRORAGE_PATH 可选，用于存放认证信息，默认/opt/rainbond-cert-controller/storage
 DINGTALK_AK 可选，用于钉钉通知
 DINGTALK_SK 可选，用于钉钉通知
 ```

@@ -1,1 +1,1 @@
-* * * * * flock -xn /tmp/certs-sign.lock -c "cd /opt/rainbond-certs-controller && ./bin/certs-controller >> /proc/1/fd/1 2>&1"
+* * * * * flock -xn /tmp/certs-sign.lock -c "cd /opt/rainbond-cert-controller && ./bin/cert-controller >> /proc/1/fd/1 2>&1"

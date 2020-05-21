@@ -16,10 +16,11 @@ import (
 )
 
 type Config struct {
-	Rainbond   Rainbond          `json:"rainbond"`
-	Acme       Acme              `json:"acme"`
-	AuthList   map[string]Auth   `json:"auth_list"`
-	NotifyList map[string]Notify `json:"notify_list"`
+	Rainbond            Rainbond          `json:"rainbond"`
+	Acme                Acme              `json:"acme"`
+	AuthList            map[string]Auth   `json:"auth_list"`
+	NotifyList          map[string]Notify `json:"notify_list"`
+	DisableCheckCluster string            `json:"disable_check_cluster"`
 }
 
 var once sync.Once
