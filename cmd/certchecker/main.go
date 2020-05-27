@@ -19,7 +19,10 @@ func init() {
 
 func main() {
 	cronSvc := cron.New(cron.WithSeconds())
-	cronSvc.AddFunc(config.Cfg.Check.CronExpr, clusterCertCheck)
+	_, err := cronSvc.AddFunc(config.Cfg.Check.CronExpr, clusterCertCheck)
+	if err != nil {
+		logrus.Error("AddFunc error " + err.Error())
+	}
 	cronSvc.Run()
 }
 
