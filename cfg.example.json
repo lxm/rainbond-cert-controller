@@ -17,5 +17,9 @@
             "secret": "${DINGTALK_SK}"
         }
     },
-    "disable_check_cluster": "${DISABLE_CLUSTER_LIST}"
+    "check": {
+        "days": ${CHECK_DAYS: 25},
+        "cron_expr": "${CHECK_CRON_EXPR:0 */10 * * * *}",
+        "disable_cluster": "${DISABLE_CLUSTER_LIST}"
+    }
 }

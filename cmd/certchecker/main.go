@@ -17,13 +17,9 @@ func init() {
 	config.Load()
 }
 
-const (
-	CHECK_DAYS = 25 // if domain cert exipres less than 25 days, then alert
-)
-
 func main() {
 	cronSvc := cron.New(cron.WithSeconds())
-	cronSvc.AddFunc("*/10 * * * *", clusterCertCheck)
+	cronSvc.AddFunc(config.Cfg.Check.CronExpr, clusterCertCheck)
 	cronSvc.Run()
 }
 
@@ -50,7 +46,7 @@ func clusterCertCheck() {
 		if strings.Compare(gwRule.Protocol, "https") != 0 {
 			continue
 		}
-		if strings.Contains(config.Cfg.DisableCheckCluster, gwRule.RegionName) {
+		if strings.Contains(config.Cfg.Check.DisableCluster, gwRule.RegionName) {
 			logrus.Info(fmt.Sprintf("rule: %s cluster: %s disabled by config, ignore", gwRule.DomainName, gwRule.RegionName))
 			continue
 		}
@@ -61,8 +57,8 @@ func clusterCertCheck() {
 			go notify.SendNotify("default", msg)
 			continue
 		}
-		if expire < CHECK_DAYS*86400 {
-			msg := fmt.Sprintf("domain:%s will expire in %d days(config: %d days), check auto sign", gwRule.DomainName, expire/86400, CHECK_DAYS)
+		if expire < config.Cfg.Check.Days*86400 {
+			msg := fmt.Sprintf("domain:%s will expire in %d days(config: %d days), check auto sign", gwRule.DomainName, expire/86400, config.Cfg.Check.Days)
 			logrus.Info(msg)
 			notify.SendNotify("default", msg)
 		}

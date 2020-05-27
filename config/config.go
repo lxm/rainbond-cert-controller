@@ -16,11 +16,11 @@ import (
 )
 
 type Config struct {
-	Rainbond            Rainbond          `json:"rainbond"`
-	Acme                Acme              `json:"acme"`
-	AuthList            map[string]Auth   `json:"auth_list"`
-	NotifyList          map[string]Notify `json:"notify_list"`
-	DisableCheckCluster string            `json:"disable_check_cluster"`
+	Rainbond   Rainbond          `json:"rainbond"`
+	Acme       Acme              `json:"acme"`
+	AuthList   map[string]Auth   `json:"auth_list"`
+	NotifyList map[string]Notify `json:"notify_list"`
+	Check      Check             `json:"check"`
 }
 
 var once sync.Once
@@ -48,6 +48,12 @@ type Notify struct {
 	Channel     string `json:"channel,omitempty"`
 	AccessToken string `json:"access_token,omitempty"`
 	Secret      string `json:"secret,omitempty"`
+}
+
+type Check struct {
+	Days           int    `json:"days"`
+	CronExpr       string `json:"cron_expr"`
+	DisableCluster string `json:"disable_cluster"`
 }
 
 //type CheckNotify map[string]string
